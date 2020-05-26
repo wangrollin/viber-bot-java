@@ -8,6 +8,8 @@ import com.google.common.net.UrlEscapers;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +25,8 @@ public class UrlMessage extends Message {
                       final @JsonProperty("keyboard") @Nullable MessageKeyboard keyboard,
                       final @JsonProperty("tracking_data") @Nullable TrackingData trackingData) {
         super("url", keyboard, trackingData);
-        this.url = UrlEscapers.urlPathSegmentEscaper().escape(checkNotEmpty(url));
+//        this.url = UrlEscapers.urlPathSegmentEscaper().escape(checkNotEmpty(url));
+        this.url = URLEncoder.encode(checkNotEmpty(url), StandardCharsets.UTF_8);
     }
 
     @JsonIgnore
